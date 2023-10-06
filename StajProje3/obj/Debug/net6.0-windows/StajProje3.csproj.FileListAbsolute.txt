@@ -1,0 +1,16 @@
+C:\Users\ohhcu\source\repos\StajProje3\StajProje3\bin\Debug\net6.0-windows\StajProje3.exe
+C:\Users\ohhcu\source\repos\StajProje3\StajProje3\bin\Debug\net6.0-windows\StajProje3.deps.json
+C:\Users\ohhcu\source\repos\StajProje3\StajProje3\bin\Debug\net6.0-windows\StajProje3.runtimeconfig.json
+C:\Users\ohhcu\source\repos\StajProje3\StajProje3\bin\Debug\net6.0-windows\StajProje3.dll
+C:\Users\ohhcu\source\repos\StajProje3\StajProje3\bin\Debug\net6.0-windows\StajProje3.pdb
+C:\Users\ohhcu\source\repos\StajProje3\StajProje3\obj\Debug\net6.0-windows\StajProje3.Form1.resources
+C:\Users\ohhcu\source\repos\StajProje3\StajProje3\obj\Debug\net6.0-windows\StajProje3.csproj.GenerateResource.cache
+C:\Users\ohhcu\source\repos\StajProje3\StajProje3\obj\Debug\net6.0-windows\StajProje3.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ohhcu\source\repos\StajProje3\StajProje3\obj\Debug\net6.0-windows\StajProje3.AssemblyInfoInputs.cache
+C:\Users\ohhcu\source\repos\StajProje3\StajProje3\obj\Debug\net6.0-windows\StajProje3.AssemblyInfo.cs
+C:\Users\ohhcu\source\repos\StajProje3\StajProje3\obj\Debug\net6.0-windows\StajProje3.csproj.CoreCompileInputs.cache
+C:\Users\ohhcu\source\repos\StajProje3\StajProje3\obj\Debug\net6.0-windows\StajProje3.dll
+C:\Users\ohhcu\source\repos\StajProje3\StajProje3\obj\Debug\net6.0-windows\refint\StajProje3.dll
+C:\Users\ohhcu\source\repos\StajProje3\StajProje3\obj\Debug\net6.0-windows\StajProje3.pdb
+C:\Users\ohhcu\source\repos\StajProje3\StajProje3\obj\Debug\net6.0-windows\StajProje3.genruntimeconfig.cache
+C:\Users\ohhcu\source\repos\StajProje3\StajProje3\obj\Debug\net6.0-windows\ref\StajProje3.dll

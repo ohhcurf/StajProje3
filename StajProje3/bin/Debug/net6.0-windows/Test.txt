@@ -1,0 +1,6 @@
+A;M,I,N
+M;S,K
+I;O,L
+O;V
+K;B
+B;C
