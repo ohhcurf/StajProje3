@@ -102,48 +102,6 @@ namespace StajProje3
             }
         }
 
-
-
-
-        private void BFS(TreeNode root)
-        {
-            Queue<TreeNode> queue = new Queue<TreeNode>();
-            queue.Enqueue(root);
-
-            while (queue.Count > 0)
-            {
-                TreeNode node = queue.Dequeue();
-                HighlightNode(node);
-                OutputNodeData(node.Text);
-                Application.DoEvents();
-                Thread.Sleep(500);
-
-                foreach (TreeNode child in node.Nodes)
-                {
-                    queue.Enqueue(child);
-                }
-            }
-        }
-
-
-
-
-        private void DFS(TreeNode root)
-        {
-            if (root == null)
-            {
-                MessageBox.Show("Lütfen önce bir metin dosyasý yükleyin.");
-                return;
-            }
-
-            dfsStack = new Stack<TreeNode>();
-            dfsStack.Push(root);
-            DFSStep();
-        }
-
-
-
-
         private void BFSBTN_Click(object sender, EventArgs e)
         {
             if (currentTraversalNode == null)
