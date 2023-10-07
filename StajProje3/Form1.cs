@@ -110,10 +110,16 @@ namespace StajProje3
                 return;
             }
 
-            if (bfsCompleted)
+            DFSBTN.Visible = false;
+            BFSBTN.Text = "Ýleri";
+
+            if (bfsCompleted || dfsCompleted)
             {
                 listBox.Items.Clear();
+                dfsCompleted = false;
                 bfsCompleted = false;
+                dfsCurrentStep = 0;
+                bfsCurrentStep = 0;
             }
 
             if (bfsCurrentStep == 0)
@@ -144,6 +150,8 @@ namespace StajProje3
                 if (bfsQueue.Count == 0)
                 {
                     MessageBox.Show("BFS iþlemi tamamlandý.");
+                    DFSBTN.Visible = true;
+                    BFSBTN.Text = "BFS";
                     bfsCompleted = true;
                 }
             }
@@ -163,10 +171,16 @@ namespace StajProje3
                 return;
             }
 
-            if (dfsCompleted)
+            BFSBTN.Visible = false;
+            DFSBTN.Text = "Ýleri";
+
+            if (bfsCompleted || dfsCompleted)
             {
                 listBox.Items.Clear();
                 dfsCompleted = false;
+                bfsCompleted = false;
+                dfsCurrentStep = 0;
+                bfsCurrentStep = 0;
             }
 
             if (dfsCurrentStep == 0)
@@ -198,6 +212,8 @@ namespace StajProje3
                 if (dfsStack.Count == 0)
                 {
                     MessageBox.Show("DFS iþlemi tamamlandý.");
+                    BFSBTN.Visible = true;
+                    DFSBTN.Text = "DFS";
                     dfsCompleted = true;
                 }
             }
