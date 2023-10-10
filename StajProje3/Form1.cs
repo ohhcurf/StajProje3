@@ -3,30 +3,34 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace StajProje3
 {
     public partial class Form1 : Form
     {
+        private CustomQueue<TreeNode> customBFSQueue = new CustomQueue<TreeNode>();
+        private CustomStack<TreeNode> customDFSStack = new CustomStack<TreeNode>();
+        private TreeNode currentNode = null;
+        private TreeNode lastVisitedNodeBFS = null;
+        private TreeNode lastVisitedNodeDFS = null;
         private TreeNode currentTraversalNode;
         private TreeNode rootNode;
-        private Queue<TreeNode> bfsQueue;
-        private Stack<TreeNode> dfsStack;
         private int bfsCurrentStep = 0;
         private int dfsCurrentStep = 0;
         private int totalNodes;
         private bool bfsCompleted = false;
         private bool dfsCompleted = false;
+        private Dictionary<TreeNode, Point> nodePositions;
 
         public Form1()
         {
             InitializeComponent();
+            nodePositions = new Dictionary<TreeNode, Point>();
+            // Double Buffering'i etkinleþtir
+            this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+
         }
-
-
-
 
         private TreeNode LoadTreeFromText(string text)
         {
@@ -67,33 +71,23 @@ namespace StajProje3
             return root;
         }
 
-
-
-
-        private void LoadTreeView(TreeNode root)
-        {
-            treeView.Nodes.Clear();
-            treeView.Nodes.Add(root);
-        }
-
-
-
-
         private void FileUploadButton_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Metin Dosyalarý|*.txt";
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "Metin Dosyalarý|*.txt";
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    string filePath = openFileDialog.FileName;
+                    string filePath = openFileDialog1.FileName;
                     string fileContent = File.ReadAllText(filePath);
                     rootNode = LoadTreeFromText(fileContent);
-                    LoadTreeView(rootNode);
                     currentTraversalNode = rootNode;
                     totalNodes = rootNode.GetNodeCount(true);
+
+                    // Aðacý çiz
+                    pictureBox1.Invalidate();
                 }
                 catch (Exception ex)
                 {
@@ -101,6 +95,28 @@ namespace StajProje3
                 }
             }
         }
+
+        private void DrawTree(TreeNode node, Graphics g, int x, int y, int xOffset, int yOffset)
+        {
+            if (node == null)
+                return;
+
+            int nodeSize = 30;
+
+            g.FillEllipse(Brushes.LightBlue, x - nodeSize / 2, y - nodeSize / 2, nodeSize, nodeSize);
+            g.DrawString(node.Text, new Font("Arial", 12), Brushes.Black, x - nodeSize / 4, y - nodeSize / 4);
+
+            int childX = x - xOffset * (node.Nodes.Count - 1) / 2;
+            int childY = y + yOffset;
+
+            foreach (TreeNode childNode in node.Nodes)
+            {
+                g.DrawLine(Pens.Black, x, y + nodeSize / 2, childX, childY - nodeSize / 2);
+                DrawTree(childNode, g, childX, childY, xOffset, yOffset);
+                childX += xOffset;
+            }
+        }
+
 
         private void BFSBTN_Click(object sender, EventArgs e)
         {
@@ -124,30 +140,37 @@ namespace StajProje3
 
             if (bfsCurrentStep == 0)
             {
-                bfsQueue = new Queue<TreeNode>();
-                bfsQueue.Enqueue(currentTraversalNode);
+                customBFSQueue.Enqueue(currentTraversalNode);
             }
 
             BFSStep();
             bfsCurrentStep++;
         }
-
-
-
         private void BFSStep()
         {
-            if (bfsQueue.Count > 0)
+            if (customBFSQueue.Count > 0)
             {
-                TreeNode node = bfsQueue.Dequeue();
-                HighlightNode(node);
+                TreeNode node = customBFSQueue.Dequeue();
+
+                // Eðer daha önce bir düðüm ziyaret edildiyse, rengini eski haline döndür
+                if (lastVisitedNodeBFS != null)
+                {
+                    lastVisitedNodeBFS.BackColor = SystemColors.Control; // Eski rengi ayarlayýn
+                }
+
+                // Düðümün rengini deðiþtir (örneðin sarý yapabilirsiniz)
+                node.BackColor = Color.Yellow;
+
                 OutputNodeData(node.Text);
 
                 foreach (TreeNode child in node.Nodes)
                 {
-                    bfsQueue.Enqueue(child);
+                    customBFSQueue.Enqueue(child);
                 }
 
-                if (bfsQueue.Count == 0)
+                lastVisitedNodeBFS = node; // Son ziyaret edilen düðümü güncelle
+
+                if (customBFSQueue.Count == 0)
                 {
                     MessageBox.Show("BFS iþlemi tamamlandý.");
                     DFSBTN.Visible = true;
@@ -159,7 +182,9 @@ namespace StajProje3
             {
                 bfsCompleted = true;
             }
+            pictureBox1.Invalidate();
         }
+
 
 
 
@@ -185,31 +210,39 @@ namespace StajProje3
 
             if (dfsCurrentStep == 0)
             {
-                dfsStack = new Stack<TreeNode>();
-                dfsStack.Push(currentTraversalNode);
+                customDFSStack.Push(currentTraversalNode);
             }
 
             DFSStep();
             dfsCurrentStep++;
         }
 
-
-
-
+        // DFS iþlemini gerçekleþtirirken DFSStep metodunu güncelleyin
         private void DFSStep()
         {
-            if (dfsStack.Count > 0)
+            if (customDFSStack.Count > 0)
             {
-                TreeNode node = dfsStack.Pop();
-                HighlightNode(node);
+                TreeNode node = customDFSStack.Pop();
+
+                // Eðer daha önce bir düðüm ziyaret edildiyse, rengini eski haline döndür
+                if (lastVisitedNodeDFS != null)
+                {
+                    lastVisitedNodeDFS.BackColor = SystemColors.Control; // Eski rengi ayarlayýn
+                }
+
+                // Düðümün rengini deðiþtir (örneðin turuncu yapabilirsiniz)
+                node.BackColor = Color.Orange;
+
                 OutputNodeData(node.Text);
 
                 foreach (TreeNode child in node.Nodes)
                 {
-                    dfsStack.Push(child);
+                    customDFSStack.Push(child); // Stack'e çocuk düðümleri ekleyin
                 }
 
-                if (dfsStack.Count == 0)
+                lastVisitedNodeDFS = node; // Son ziyaret edilen DFS düðümünü güncelle
+
+                if (customDFSStack.Count == 0)
                 {
                     MessageBox.Show("DFS iþlemi tamamlandý.");
                     BFSBTN.Visible = true;
@@ -221,23 +254,45 @@ namespace StajProje3
             {
                 dfsCompleted = true;
             }
+            pictureBox1.Invalidate();
         }
-
-
-
-
-        private void HighlightNode(TreeNode node)
-        {
-            treeView.SelectedNode = node;
-            treeView.Focus();
-        }
-
 
 
 
         private void OutputNodeData(string data)
         {
             listBox.Items.Add(data);
+        }
+
+
+
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            if (rootNode != null)
+            {
+                Color nodeColor = Color.LightBlue;
+                Color textColor = Color.Black;
+                int nodeRadius = 30;
+
+                DrawTree(rootNode, e.Graphics, pictureBox1.Width / 2, 50, 100, 100);
+
+                foreach (var node in nodePositions.Keys)
+                {
+                    Point nodePosition = nodePositions[node];
+                    int x = nodePosition.X;
+                    int y = nodePosition.Y;
+
+                    Rectangle rect = new Rectangle(x - nodeRadius, y - nodeRadius, 2 * nodeRadius, 2 * nodeRadius);
+                    e.Graphics.FillEllipse(new SolidBrush(nodeColor), rect);
+                    e.Graphics.DrawEllipse(Pens.Black, rect);
+
+                    string labelText = node.Text;
+                    SizeF labelSize = e.Graphics.MeasureString(labelText, Font);
+                    float labelX = x - labelSize.Width / 2;
+                    float labelY = y - labelSize.Height / 2;
+                    e.Graphics.DrawString(labelText, Font, new SolidBrush(textColor), labelX, labelY);
+                }
+            }
         }
     }
 }

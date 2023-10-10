@@ -28,23 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            treeView = new TreeView();
             BFSBTN = new Button();
             DFSBTN = new Button();
             DosyaYukleButton = new Button();
             listBox = new ListBox();
+            pictureBox1 = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
-            // 
-            // treeView
-            // 
-            treeView.Location = new Point(12, 12);
-            treeView.Name = "treeView";
-            treeView.Size = new Size(554, 417);
-            treeView.TabIndex = 0;
             // 
             // BFSBTN
             // 
-            BFSBTN.Location = new Point(614, 27);
+            BFSBTN.Location = new Point(729, 106);
             BFSBTN.Name = "BFSBTN";
             BFSBTN.Size = new Size(137, 47);
             BFSBTN.TabIndex = 1;
@@ -54,7 +48,7 @@
             // 
             // DFSBTN
             // 
-            DFSBTN.Location = new Point(614, 96);
+            DFSBTN.Location = new Point(729, 199);
             DFSBTN.Name = "DFSBTN";
             DFSBTN.Size = new Size(137, 44);
             DFSBTN.TabIndex = 2;
@@ -64,7 +58,7 @@
             // 
             // DosyaYukleButton
             // 
-            DosyaYukleButton.Location = new Point(614, 380);
+            DosyaYukleButton.Location = new Point(729, 545);
             DosyaYukleButton.Name = "DosyaYukleButton";
             DosyaYukleButton.Size = new Size(137, 49);
             DosyaYukleButton.TabIndex = 3;
@@ -76,32 +70,41 @@
             // 
             listBox.FormattingEnabled = true;
             listBox.ItemHeight = 15;
-            listBox.Location = new Point(614, 160);
+            listBox.Location = new Point(729, 311);
             listBox.Name = "listBox";
             listBox.Size = new Size(137, 199);
             listBox.TabIndex = 4;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Location = new Point(46, 34);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(650, 560);
+            pictureBox1.TabIndex = 5;
+            pictureBox1.TabStop = false;
+            pictureBox1.Paint += pictureBox1_Paint;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(896, 630);
+            Controls.Add(pictureBox1);
             Controls.Add(listBox);
             Controls.Add(DosyaYukleButton);
             Controls.Add(DFSBTN);
             Controls.Add(BFSBTN);
-            Controls.Add(treeView);
             Name = "Form1";
             Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-
-        private TreeView treeView;
         private Button BFSBTN;
         private Button DFSBTN;
         private Button DosyaYukleButton;
         private ListBox listBox;
+        private PictureBox pictureBox1;
     }
 }
