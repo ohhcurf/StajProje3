@@ -1,5 +1,5 @@
-A; B, C, D
-B; E, F
-C; G
-D; H
-E; I
+A; B,C
+B; D,E
+C; H,K
+K; N,M,P,İ
+İ; O,Ö

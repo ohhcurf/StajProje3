@@ -31,14 +31,15 @@
             BFSBTN = new Button();
             DFSBTN = new Button();
             DosyaYukleButton = new Button();
-            listBox = new ListBox();
-            pictureBox1 = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            visitedNodeList = new ListBox();
+            nodePictureBox = new PictureBox();
+            processLabel = new Label();
+            ((System.ComponentModel.ISupportInitialize)nodePictureBox).BeginInit();
             SuspendLayout();
             // 
             // BFSBTN
             // 
-            BFSBTN.Location = new Point(729, 106);
+            BFSBTN.Location = new Point(729, 104);
             BFSBTN.Name = "BFSBTN";
             BFSBTN.Size = new Size(137, 47);
             BFSBTN.TabIndex = 1;
@@ -66,45 +67,58 @@
             DosyaYukleButton.UseVisualStyleBackColor = true;
             DosyaYukleButton.Click += FileUploadButton_Click;
             // 
-            // listBox
+            // visitedNodeList
             // 
-            listBox.FormattingEnabled = true;
-            listBox.ItemHeight = 15;
-            listBox.Location = new Point(729, 311);
-            listBox.Name = "listBox";
-            listBox.Size = new Size(137, 199);
-            listBox.TabIndex = 4;
+            visitedNodeList.FormattingEnabled = true;
+            visitedNodeList.ItemHeight = 15;
+            visitedNodeList.Location = new Point(729, 311);
+            visitedNodeList.Name = "visitedNodeList";
+            visitedNodeList.Size = new Size(137, 199);
+            visitedNodeList.TabIndex = 4;
             // 
-            // pictureBox1
+            // nodePictureBox
             // 
-            pictureBox1.Location = new Point(46, 34);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(650, 560);
-            pictureBox1.TabIndex = 5;
-            pictureBox1.TabStop = false;
-            pictureBox1.Paint += pictureBox1_Paint;
+            nodePictureBox.Location = new Point(46, 34);
+            nodePictureBox.Name = "nodePictureBox";
+            nodePictureBox.Size = new Size(650, 560);
+            nodePictureBox.TabIndex = 5;
+            nodePictureBox.TabStop = false;
+            nodePictureBox.Paint += nodePictureBox_Paint;
+            // 
+            // processLabel
+            // 
+            processLabel.AutoSize = true;
+            processLabel.Location = new Point(729, 34);
+            processLabel.Name = "processLabel";
+            processLabel.Size = new Size(75, 15);
+            processLabel.TabIndex = 6;
+            processLabel.Text = "processLabel";
+            processLabel.Visible = false;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(896, 630);
-            Controls.Add(pictureBox1);
-            Controls.Add(listBox);
+            Controls.Add(processLabel);
+            Controls.Add(nodePictureBox);
+            Controls.Add(visitedNodeList);
             Controls.Add(DosyaYukleButton);
             Controls.Add(DFSBTN);
             Controls.Add(BFSBTN);
             Name = "Form1";
             Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nodePictureBox).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
         private Button BFSBTN;
         private Button DFSBTN;
         private Button DosyaYukleButton;
-        private ListBox listBox;
-        private PictureBox pictureBox1;
+        private ListBox visitedNodeList;
+        private PictureBox nodePictureBox;
+        private Label processLabel;
     }
 }
